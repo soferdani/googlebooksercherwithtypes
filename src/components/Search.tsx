@@ -1,12 +1,6 @@
 import { Button, Form, Row, Col, Container, InputGroup } from "react-bootstrap";
 import React from "react";
-
-interface SearchProps {
-    submit: () => void ;
-    setSearch: (searchVal: string) => void;
-    search: string ;
-}
-
+import { SearchProps } from "../interfaces";
 
 const Search: React.FC<SearchProps> = ({ submit, setSearch, search }) => {
     

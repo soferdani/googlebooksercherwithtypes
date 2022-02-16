@@ -1,12 +1,6 @@
 import React from "react";
 import { Card } from "react-bootstrap";
-
-
-interface CardbookProps { 
-    title?: string;
-    imageUrl?: string;
-    description?: string;
-}
+import {CardbookProps} from "../interfaces";
 
 const Cardbook: React.FC<CardbookProps> = ({imageUrl,title,description}) => {
     return (
