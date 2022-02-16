@@ -2,6 +2,8 @@ import "./App.css";
 import React from "react";
 import { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { Spinner } from "react-bootstrap";
+
 import Cardbook from "./components/Cardbook";
 import Search from "./components/Search";
 import axios , {AxiosResponse} from "axios";
@@ -11,7 +13,8 @@ const App: React.FC = () => {
     const [search, setSearch] = useState<string>("");
     const [books, setBooks] = useState<Array<book>>([]);
     const [serverErrorFlag, setServerErrorFlag] = useState<boolean>(false);
-
+    const [reqFlag, setReqFlag] = useState<boolean>(false);
+  
     const errorValues = {
         title: "There seems to be a problem",
         description: "Please try again later",
@@ -23,15 +26,18 @@ const App: React.FC = () => {
         if (search === "") {
             return;
         }
+        setBooks([]);
+        setReqFlag(true);
         try {
             const response: AxiosResponse = await axios.get(
                 `https://www.googleapis.com/books/v1/volumes?q=${search}`
             );
             setBooks(response.data.items);
-            //need to add spinner
+            setReqFlag(false);
             setServerErrorFlag(false);
         } catch (error) { 
             setServerErrorFlag(true);
+            setReqFlag(false);
             console.log(error);
         }
     };
@@ -39,10 +45,14 @@ const App: React.FC = () => {
     return (
         <div className='App' data-testid="App" >
             <Search submit={handleSubmit} setSearch={setSearch} search={search} />
-            {/* need to remove this br */}
-            <br /> 
-            {/* need to remove this br */}
             <div className='cardHolder'>
+                {reqFlag ? 
+                    <div className='spinner'>
+                        <Spinner animation="border" role="status">
+                            <span className="visually-hidden">Loading...</span>
+                        </Spinner>
+                    </div>
+                    : null}
                 {serverErrorFlag ? <Cardbook title={errorValues.title} imageUrl={errorValues.imageUrl} description={errorValues.description} /> : null}
                 {books ? books.map(book => {
                     const image: string = book.volumeInfo.imageLinks ? book.volumeInfo.imageLinks.thumbnail
