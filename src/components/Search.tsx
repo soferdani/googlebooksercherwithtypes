@@ -1,8 +1,5 @@
-import { Button, Form, Row, Col, Container, InputGroup, FormControl } from "react-bootstrap";
+import { Button, Form, Row, Col, Container, InputGroup } from "react-bootstrap";
 import React from "react";
-import { log } from "console";
-
-
 
 interface SearchProps {
     submit: () => void ;
@@ -11,10 +8,9 @@ interface SearchProps {
 }
 
 
-
 const Search: React.FC<SearchProps> = ({ submit, setSearch, search }) => {
     
-    const keyPress = (e: React.KeyboardEvent<any>) => {
+    const keyPress = (e: React.KeyboardEvent<unknown>) => {
         if (e.key === "Enter") {
             submit();
         }

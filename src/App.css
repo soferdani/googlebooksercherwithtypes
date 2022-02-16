@@ -1,3 +1,8 @@
+:root {
+  --scrollbarThumb-color:rgb(25,135,84);
+  --scrollbar-thumbHover-color: rgb(120, 182, 153); 
+}
+
 .App {
   text-align: center;
 }
@@ -23,18 +28,15 @@
 }
 
 
-/* Track */
 ::-webkit-scrollbar-track {
-  /* box-shadow: inset 0 0 5px grey;  */
   border-radius: 10px;
 }
 
-/* Handle */
 ::-webkit-scrollbar-thumb {
-  background: rgb(25,135,84); 
+  background: var(--scrollbarThumb-color); 
   border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgb(120, 182, 153); 
+  background: var(--scrollbar-thumbHover-color);
 }
