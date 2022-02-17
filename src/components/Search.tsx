@@ -1,33 +1,32 @@
 import { Button, Form, Row, Col, Container, InputGroup } from "react-bootstrap";
-import React, {useMemo} from "react";
+import React, {useCallback, useState} from "react";
 import { SearchProps } from "../interfaces";
 
-
-interface eventHndletProps  { 
-    event: React.FormEvent<HTMLFormElement>;
-}
-
-
-
-
 const Search: React.FC<SearchProps> = ({ submit, setSearch, search }) => {
+    const [countEnterPress, setCountEnterPress] = useState<number>(0);
     
-    // const keyPress = (e: React.KeyboardEvent<unknown>) => {
-    //     if (e.key === "Enter") {
-    //         submit();
-    //     }
-    // };
-
-    const keyPress = useMemo((e: <eventHndletProps>) => {
+    const keyPress = (e: React.KeyboardEvent<unknown>) => {
         if (e.key === "Enter") {
-            submit();
+            setCountEnterPress(countEnterPress + 1);            
+            onSubmit();
+        }
+    };
+    
+    const onChange = useCallback((e) => {
+        setCountEnterPress(0);
+        if (e.target.value !== search) {
+            setSearch(e.target.value);
         }
     }, [search]);
 
+    const onSubmit = () => {
+        if (search !== "" && countEnterPress === 0) { 
+            submit();
+        }
+    };
 
     return (
         <Container fluid='md'>
-            <br />
             <Row>
                 <Col>
                     <Form.Label>
@@ -40,12 +39,10 @@ const Search: React.FC<SearchProps> = ({ submit, setSearch, search }) => {
                             placeholder='Book title'
                             type='text'
                             value={search}
-                            onChange={(e) => setSearch(e.target.value)}
-                            onKeyPress={ (e) => {
-                                keyPress(e);
-                            }}
+                            onChange={onChange}
+                            onKeyPress={keyPress}
                         />
-                        <Button onClick={submit} variant='success'>
+                        <Button onClick={onSubmit} variant='success'>
                             Search
                         </Button>{" "}
                     </InputGroup>

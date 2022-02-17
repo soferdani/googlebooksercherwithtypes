@@ -16,5 +16,4 @@ const Cardbook: React.FC<CardbookProps> = ({imageUrl,title,description}) => {
     );
 };
 
-
 export default Cardbook;

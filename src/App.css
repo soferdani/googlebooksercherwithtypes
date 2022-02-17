@@ -23,11 +23,9 @@
   margin: 10px 10px;
 }
 
-
 ::-webkit-scrollbar {
   width: 13px;
 }
-
 
 ::-webkit-scrollbar-track {
   border-radius: 10px;

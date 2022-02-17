@@ -1,9 +1,7 @@
 import "./App.css";
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Spinner } from "react-bootstrap";
-
 import Cardbook from "./components/Cardbook";
 import Search from "./components/Search";
 import axios , {AxiosResponse} from "axios";
@@ -20,18 +18,24 @@ const App: React.FC = () => {
         description: "Please try again later",
         imageUrl: "https://www.mobileread.com/forums/attachment.php?attachmentid=111264&d=1378642555"
     };  
-  
-  
+
     const handleSubmit = async () => {
-        if (search === "") {
-            return;
-        }
         setBooks([]);
         setReqFlag(true);
         try {
             const response: AxiosResponse = await axios.get(
                 `https://www.googleapis.com/books/v1/volumes?q=${search}`
             );
+          
+            if (response.data.items === undefined) {
+                console.log(response.data.items);
+                console.log("here inside");
+              
+                setServerErrorFlag(true);
+                console.log(serverErrorFlag);
+                
+                setReqFlag(false);
+            }
             setBooks(response.data.items);
             setReqFlag(false);
             setServerErrorFlag(false);
@@ -41,7 +45,7 @@ const App: React.FC = () => {
             console.log(error);
         }
     };
-  
+
     return (
         <div className='App' data-testid="App" >
             <Search submit={handleSubmit} setSearch={setSearch} search={search} />
@@ -72,6 +76,5 @@ const App: React.FC = () => {
         </div>
     );
 };
-
 
 export default App;

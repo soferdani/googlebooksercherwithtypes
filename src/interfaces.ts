@@ -39,6 +39,7 @@ export interface CardbookProps {
     title?: string;
     imageUrl?: string;
     description?: string;
+    
 }
 
 
