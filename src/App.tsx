@@ -20,19 +20,21 @@ const App: React.FC = () => {
     };  
 
     const handleSubmit = async () => {
-        setBooks([]);
-        setReqFlag(true);
-        try {
-            const response: AxiosResponse = await axios.get(
-                `https://www.googleapis.com/books/v1/volumes?q=${search}`
-            );
-            setBooks(response.data.items);
-            setReqFlag(false);
-            setServerErrorFlag(false);
-        } catch (error) { 
-            setServerErrorFlag(true);
-            setReqFlag(false);
-            console.log(error);
+        if (!reqFlag) {
+            setBooks([]);
+            try {
+                setReqFlag(true);
+                const response: AxiosResponse = await axios.get(
+                    `https://www.googleapis.com/books/v1/volumes?q=${search}`
+                );
+                setBooks(response.data.items);
+                setReqFlag(false);
+                setServerErrorFlag(false);
+            } catch (error) { 
+                setServerErrorFlag(true);
+                setReqFlag(false);
+                console.log(error);
+            }
         }
     };
 
