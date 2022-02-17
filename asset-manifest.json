@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/googlebooksercherwithtypes/static/css/main.ddb2300d.css",
+    "main.js": "/googlebooksercherwithtypes/static/js/main.be3b93c9.js",
+    "index.html": "/googlebooksercherwithtypes/index.html",
+    "main.ddb2300d.css.map": "/googlebooksercherwithtypes/static/css/main.ddb2300d.css.map",
+    "main.be3b93c9.js.map": "/googlebooksercherwithtypes/static/js/main.be3b93c9.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.ddb2300d.css",
+    "static/js/main.be3b93c9.js"
+  ]
+}
