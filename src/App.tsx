@@ -26,16 +26,6 @@ const App: React.FC = () => {
             const response: AxiosResponse = await axios.get(
                 `https://www.googleapis.com/books/v1/volumes?q=${search}`
             );
-          
-            if (response.data.items === undefined) {
-                console.log(response.data.items);
-                console.log("here inside");
-              
-                setServerErrorFlag(true);
-                console.log(serverErrorFlag);
-                
-                setReqFlag(false);
-            }
             setBooks(response.data.items);
             setReqFlag(false);
             setServerErrorFlag(false);
